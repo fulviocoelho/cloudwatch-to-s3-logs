@@ -1,9 +1,11 @@
+// import { CloudWatchLogs } from '@aws-sdk/client-cloudwatch-logs'
 import { CloudWatchLogs } from 'aws-sdk'
 import ICWLogs from '../interfaces/ICWLogs'
 
 function cw_logs(
     params: CloudWatchLogs.ClientConfiguration, 
-    aws_logs: CloudWatchLogs = new CloudWatchLogs(params)
+    aws_logs: CloudWatchLogs | any = new CloudWatchLogs()
+    // aws_logs: CloudWatchLogs = new CloudWatchLogs(params)
 ): ICWLogs {
     return {
         describeLobGroups: async () => {
@@ -17,7 +19,7 @@ function cw_logs(
             if(!export_tasks.exportTasks) {
                 throw new Error()
             }
-            const task = export_tasks.exportTasks.filter((task) => task.taskId === '2754b2bd-a5a2-4460-9011-83737eab2bb5')
+            const task = export_tasks.exportTasks.filter((task) => task.taskId === task_id)
 
             if(task.length === 0 || !task[0].status || !task[0].status.code) {
                 throw new Error()

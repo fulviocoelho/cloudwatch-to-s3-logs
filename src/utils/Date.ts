@@ -1,12 +1,16 @@
 import IDate from "../interfaces/IDate"
+import IDateParams from "../interfaces/IDateParams"
 
-function date(): IDate {
+function date({ 
+    from_date, 
+    to_date 
+}: IDateParams = { 
+    from_date: new Date(),
+    to_date: new Date()
+ }): IDate {
     return {
         fromTodayBack: (days: number) => {
-            const from_date = new Date()
             from_date.setDate(from_date.getDate() - days)
-        
-            const to_date = new Date()
             to_date.setDate(to_date.getDate())
         
             return {
